@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 
@@ -8,6 +8,8 @@ const Header = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/login'>Login</NavLink></li>
         <li><NavLink to='/register'>Register</NavLink></li>
+        <li><NavLink to='/update'>update profile</NavLink></li>
+        <li><NavLink to='/details'>details</NavLink></li>
 
 
     </>
@@ -24,16 +26,23 @@ const Header = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">OAI</a>
+                <a className="btn btn-ghost text-xl font-bold">OAI</a>
             </div>
             <div className="navbar-center hidden lg:flex">
-                
+
                 <ul className="menu menu-horizontal px-1">
                     {navLinks}
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Sign Out</a>
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                    <div className="w-10 rounded-full">
+                        <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                </div>
+                <div>
+                    <Link><button className="btn btn-active btn-ghost">Login</button></Link>
+                </div>
             </div>
         </div>
     );

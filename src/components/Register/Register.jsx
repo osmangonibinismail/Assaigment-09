@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } 
 import { Link } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 
 const Register = () => {
 
@@ -68,11 +68,11 @@ const Register = () => {
 
 
     return (
-        <div className="hero min-h-screen" style={{ backgroundImage: 'url()' }} >
+        <div className="hero min-h-screen bg-sky-950 mt-20 mb-20" >
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Register Now!</h1>
-                    <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                    <h1 className="text-5xl font-bold text-white">Register Now!</h1>
+                    <p className="py-6 text-white">Registration process by providing name, email, and password, upload a photo for further participation.If you have an account, log in first.</p>
                 </div>
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleRegister} className="card-body">
@@ -124,6 +124,15 @@ const Register = () => {
                     }
 
                     <p className="text-center mt-4">already account?  please<Link className="" to='/login'><button className="btn btn-link font-bold">Login</button></Link></p>
+                    <button className="btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
+                        <FaGoogle></FaGoogle>
+                        <p className="ml-3">Register with Google</p>
+                    </button>
+                    <button className="btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl">
+                        <FaGithub></FaGithub>
+                        <p className="ml-3">
+                        Register with Github</p>
+                    </button>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/aut
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 
 
 
@@ -68,11 +68,11 @@ const Login = () => {
 
 
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen bg-rose-950 mt-20 mb-20">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Login Now!</h1>
-                    <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                <div className="text-center lg:text-left ">
+                    <h1 className="text-5xl font-bold text-white">Login Now!</h1>
+                    <p className="py-6 text-white">Login with email and password Reset password if you forgot password. Have an account or not?  If not then register first.</p>
                 </div>
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleLogin} className="card-body">
@@ -111,7 +111,17 @@ const Login = () => {
                         success && <p className="text-green-600 text-center text-2xl">{success}</p>
                     }
                     <p className="text-center mt-4">Do not have an Account? please <Link className="" to='/register'><button className="btn btn-link font-bold">Register</button></Link></p>
+                    <button className="btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
+                        <FaGoogle></FaGoogle>
+                        <p className="ml-3">Login with Google</p>
+                        
+                    </button>
+                    <button className="btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl ">
+                        <FaGithub></FaGithub>
+                        <p className="ml-3">Login with Github</p>
+                    </button>
                 </div>
+                
             </div>
         </div>
     );
