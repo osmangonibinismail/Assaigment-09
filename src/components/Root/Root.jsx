@@ -4,13 +4,17 @@ import Footer from "../Footer/Footer";
 
 
 const Root = () => {
-        return (
+    return (
+        <div className='max-w-6xl mx-auto'>
             <div>
                 <Header></Header>
-                <Outlet></Outlet>
-                <Footer></Footer>
+                <div className='min-h-[calc(100vh-116px)]'>
+                    <Outlet></Outlet>
+                </div>
             </div>
-        );
-    };
-    
-    export default Root;
+            <Footer></Footer>
+        </div>
+    );
+};
+
+export default Root;

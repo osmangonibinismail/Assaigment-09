@@ -1,15 +1,69 @@
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import auth from "../../firebase/firebase.config";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 
 
 const Login = () => {
 
+
+    const emailRef = useRef(null);
+    const [registerError, setRegisterError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [showPassword, setShowPassword] = useState('');
+
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password)
+
+
+        // reset error an success
+        setRegisterError('');
+        setSuccess('');
+
+
+
+        // add validation
+        signInWithEmailAndPassword(auth, email, password)
+            .then(result => {
+                console.log(result.user);
+                if (result.user.emailVerified) {
+                    setSuccess('user logged in successfully')
+                }
+                else {
+                    alert('please verify your email address')
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                setRegisterError(error.message);
+            })
+    }
+
+    const handleForgetPassword = () => {
+        const email = emailRef.current.value;
+        if (!email) {
+            console.log('please provide an email', emailRef.current.value)
+            return;
+        }
+        else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            console.log('please write a valid email')
+            return;
+        }
+
+        // send validation email 
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                alert('please check your email')
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
 
@@ -26,21 +80,36 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" name="email" placeholder="email" className="input input-bordered" required />
+                            <input type="email" name="email"
+                                ref={emailRef} placeholder="email" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+                            <div className="mb-4 relative">
+                                <input type={showPassword ? "text" : "password"} placeholder="password" name="password" className="input input-bordered mb-4 w-full px-4 py-2" required />
+                                <span className="absolute top-3 right-3"
+                                    onClick={() => setShowPassword(!showPassword)}>
+                                    {
+                                        showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
+                                    }
+                                </span>
+                            </div>
                             <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                <a onClick={handleForgetPassword} href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
+                    {
+                        registerError && <p className="text-red-700">{registerError}</p>
+                    }
+                    {
+                        success && <p className="text-green-600 text-center text-2xl">{success}</p>
+                    }
                     <p className="text-center mt-4">Do not have an Account? please <Link className="" to='/register'><button className="btn btn-link font-bold">Register</button></Link></p>
                 </div>
             </div>
