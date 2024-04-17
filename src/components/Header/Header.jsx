@@ -19,7 +19,11 @@ const Header = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/login'>Login</NavLink></li>
         <li><NavLink to='/register'>Register</NavLink></li>
-        <li><NavLink to='/update'>update profile</NavLink></li>
+        {user && <>
+            <li><NavLink to='/update'>update profile</NavLink></li>
+            <li><NavLink to='/card/:id'>Card Details</NavLink></li>
+            
+        </>}
 
 
     </>

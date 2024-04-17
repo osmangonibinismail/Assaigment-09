@@ -33,7 +33,7 @@ const Banner = () => {
                 </div>
             </div>
             <div className="max-auto mt-10 mb-10 text-center">
-                <h3 className="text-3xl font-bold">Card List</h3>
+                <h3 className="text-3xl font-bold">This is special Card List</h3>
             </div>
         </div>
 

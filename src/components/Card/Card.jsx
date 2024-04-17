@@ -1,10 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
 
 const Card = () => {
-    
-    const {specialName} = useParams();
+    const [card, setCard] = useState([]);
+    const { specialName} = card;
+    useEffect(() => {
+        fetch('card.json')
+            .then(res => res.json())
+            .then(data => setCard(data));
+    }, [])
 
     return (
         <div>
