@@ -1,27 +1,32 @@
-// import { useEffect } from "react";
-// import { useState } from "react";
-// import Card from "../Card/Card";
+import { Link } from "react-router-dom";
 
 
 
-// const CardsItem = () => {
-//     const [cardsItem, setCardsItem] = useState([]);
 
-//     useEffect(() => {
-//         fetch('Speciality.json')
-//             .then(res => res.json())
-//             .then(data => setCardsItem(data));
-//     }, [])
-//     return (
-//         <div>
-//             <div className="grid md:grid-cols-3 gap-10 pt-20">
-//                 {
-//                     cardsItem.map(card => <Card key={card.specialId} card={card}></Card>)
-//                 }
-//             </div>
-//         </div>
+const CardsItem = ({ card }) => {
+    const { specialTitle, specialName, specialId, description, image} = card;
+    return (
+        <div className=" gap-10 pt-10 pb-20">
+            <div className="card w-90 bg-gray-200 shadow-xl">
+                <figure className="">
+                    <img src={image} alt="Shoes" className="rounded-xl" />
+                </figure>
+                <div className="card-body items-center text-center">
+                    <h2 className="card-title text-xl font-bold">{specialTitle}</h2>
+                    <h3 className="card-title text-large font-bold">{specialName}</h3>
+                    {
+                        description.length > 50
+                            ? <p>{description.slice(0, 50)}
+                            <br /><Link className="btn btn-active btn-link"
+                                to={`/card/${specialId}`}
+                                >Read more.....</Link></p>
+                            : <p>{description}</p>
+                        }
+                </div>
+            </div>
+        </div>
 
-//     );
-// };
+    );
+};
 
-// export default CardsItem;
+export default CardsItem;

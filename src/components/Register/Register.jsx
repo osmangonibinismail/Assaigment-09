@@ -1,11 +1,13 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
+import { onAuthStateChanged, signOut } from "firebase/auth/cordova";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-
+    const { createUser } = useContext(AuthContext);
 
     const [registerError, setRegisterError] = useState('');
     const [success, setSuccess] = useState('');
@@ -34,13 +36,17 @@ const Register = () => {
             setRegisterError('Your password should have at least one uppercase characters')
             return;
         }
+        else if (!/[a-z]/.test(password)) {
+            setRegisterError('Your password should have at least one lowercase characters')
+            return;
+        }
 
         else if (!accepted) {
             setRegisterError('Please accept our terms and condition')
             return;
         }
         // create user
-        createUserWithEmailAndPassword(auth, email, password)
+        createUser(email, password)
             .then(result => {
                 console.log(result.user);
                 setSuccess('user created successfully')
@@ -64,6 +70,10 @@ const Register = () => {
                 console.error(error);
                 setRegisterError(error.message);
             })
+        
+
+        
+        
     }
 
 
@@ -124,14 +134,14 @@ const Register = () => {
                     }
 
                     <p className="text-center mt-4">already account?  please<Link className="" to='/login'><button className="btn btn-link font-bold">Login</button></Link></p>
-                    <button className="btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
+                    <button className="border border-indigo-600 btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
                         <FaGoogle></FaGoogle>
                         <p className="ml-3">Register with Google</p>
                     </button>
-                    <button className="btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl">
+                    <button className="border border-indigo-600 btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl">
                         <FaGithub></FaGithub>
                         <p className="ml-3">
-                        Register with Github</p>
+                            Register with Github</p>
                     </button>
                 </div>
             </div>

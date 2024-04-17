@@ -1,14 +1,19 @@
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import auth from "../../firebase/firebase.config";
+import { useContext, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
+import { AuthContext } from "../Provider/AuthProvider";
+import auth from "../../firebase/firebase.config";
 
 
 
 
 const Login = () => {
 
+    const {signIn} = useContext(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log('location the path name', location);
 
     const emailRef = useRef(null);
     const [registerError, setRegisterError] = useState('');
@@ -29,15 +34,19 @@ const Login = () => {
 
 
         // add validation
-        signInWithEmailAndPassword(auth, email, password)
+        signIn(email, password)
             .then(result => {
                 console.log(result.user);
+                // Navigate after login
+
+                navigate(location?.state ? location.state : '/');
                 if (result.user.emailVerified) {
                     setSuccess('user logged in successfully')
                 }
                 else {
                     alert('please verify your email address')
                 }
+
             })
             .catch(error => {
                 console.error(error);
@@ -111,12 +120,12 @@ const Login = () => {
                         success && <p className="text-green-600 text-center text-2xl">{success}</p>
                     }
                     <p className="text-center mt-4">Do not have an Account? please <Link className="" to='/register'><button className="btn btn-link font-bold">Register</button></Link></p>
-                    <button className="btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
+                    <button className="border border-indigo-600 btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
                         <FaGoogle></FaGoogle>
                         <p className="ml-3">Login with Google</p>
                         
                     </button>
-                    <button className="btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl ">
+                    <button className="border border-indigo-600 btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl ">
                         <FaGithub></FaGithub>
                         <p className="ml-3">Login with Github</p>
                     </button>
