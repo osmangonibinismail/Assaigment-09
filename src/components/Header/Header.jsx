@@ -16,7 +16,7 @@ const Header = () => {
             .catch()
     }
     const navLinks = <>
-        <li><NavLink to='/'>Home</NavLink></li>
+        <li className=" text-xl font-bold pr-20"><NavLink to='/'>OAI Speciality</NavLink></li>
         <li><NavLink to='/login'>Login</NavLink></li>
         <li><NavLink to='/register'>Register</NavLink></li>
         {user && <>
@@ -30,7 +30,7 @@ const Header = () => {
 
 
     return (
-        <div className="navbar bg-base-100 ">
+        <div className="navbar bg-slate-200 border-x-4 border-b-4 border-blue-500">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -40,7 +40,6 @@ const Header = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl font-bold">OAI</a>
             </div>
             <div className="navbar-center hidden lg:flex">
 

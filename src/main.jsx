@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: '/update',
         element: <UpdateRoutes><Update></Update></UpdateRoutes>
-      }
+      },
     ]
   },
 ]);

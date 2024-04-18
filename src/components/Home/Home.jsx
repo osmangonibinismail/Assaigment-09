@@ -4,7 +4,6 @@ import Card from "../Card/Card";
 import CardsItem from "../CardsItem/CardsItem";
 import Estate from "../Estate/Estate";
 
-
 const Home = () => {
     const card = useLoaderData();
     console.log(card)

@@ -27,6 +27,7 @@ const UpdateRoutes = ({ children }) => {
     }
   
     return <Navigate state={location.pathname} to="/login"></Navigate>
+    ret
   }
   
   export default UpdateRoutes;

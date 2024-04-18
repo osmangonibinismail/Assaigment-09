@@ -10,7 +10,7 @@ import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 
 const Login = () => {
-
+    const {signIn} = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
 
@@ -35,7 +35,7 @@ const Login = () => {
         setSuccess('');
 
 
-
+        console.log(email, password)
         // add validation
         signIn(email, password)
             .then(result => {
@@ -43,12 +43,12 @@ const Login = () => {
                 // Navigate after login
 
                 navigate(location?.state ? location.state : '/');
-                if (result.user.emailVerified) {
-                    setSuccess('user logged in successfully')
-                }
-                else {
-                    alert('please verify your email address')
-                }
+                // if (result.user.emailVerified) {
+                //     setSuccess('user logged in successfully')
+                // }
+                // else {
+                //     alert('please verify your email address')
+                // }
 
             })
             .catch(error => {
@@ -84,6 +84,7 @@ const Login = () => {
                 const loggedInUser = result.user;
 
                 console.log(loggedInUser);
+                navigate(location?.state ? location.state : '/');
             })
             .catch(error => {
                 console.log(error)
@@ -96,6 +97,7 @@ const Login = () => {
             const loggedUser = result.user;
 
             console.log(loggedUser);
+            navigate(location?.state ? location.state : '/');
         })
         .catch(error => {
             console.log(error)
@@ -141,7 +143,7 @@ const Login = () => {
                         </div>
                     </form>
                     {
-                        registerError && <p className="text-red-700">{registerError}</p>
+                        registerError && <p className="text-red-700  text-center text-2xl">{registerError}</p>
                     }
                     {
                         success && <p className="text-green-600 text-center text-2xl">{success}</p>

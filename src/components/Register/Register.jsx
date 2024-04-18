@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, updateProfile } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
 import { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
@@ -11,6 +11,10 @@ const Register = () => {
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
     const { createUser } = useContext(AuthContext);
+    
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log('location the path name', location);
 
     const [registerError, setRegisterError] = useState('');
     const [success, setSuccess] = useState('');
@@ -53,21 +57,22 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 setSuccess('user created successfully')
+                navigate(location?.state ? location.state : '/');
 
                 // update profile
                 updateProfile(result.user, {
                     displayName: name,
-                    photoURL: "https://example.com/jane-q-user/profile.jpg"
+                    photoURL: photo
                 })
                     .then(() => console.log('profile updated'))
                     .catch()
 
 
                 // send email verification
-                sendEmailVerification(result.user)
-                    .then(() => {
-                        alert('please check your email and verified your account')
-                    })
+                // sendEmailVerification(result.user)
+                //     .then(() => {
+                //         alert('please check your email and verified your account')
+                //     })
             })
             .catch(error => {
                 console.error(error);
@@ -83,6 +88,7 @@ const Register = () => {
                 const loggedInUser = result.user;
 
                 console.log(loggedInUser);
+                navigate(location?.state ? location.state : '/');
             })
             .catch(error => {
                 console.log(error)
@@ -95,6 +101,7 @@ const Register = () => {
             const loggedUser = result.user;
 
             console.log(loggedUser);
+            navigate(location?.state ? location.state : '/');
         })
         .catch(error => {
             console.log(error)
@@ -153,7 +160,7 @@ const Register = () => {
                         </div>
                     </form>
                     {
-                        registerError && <p className="text-red-700">{registerError}</p>
+                        registerError && <p className="text-red-700  text-center text-2xl">{registerError}</p>
                     }
                     {
                         success && <p className="text-green-600 text-center text-2xl">{success}</p>
