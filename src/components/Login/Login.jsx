@@ -5,7 +5,8 @@ import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 import auth from "../../firebase/firebase.config";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 
@@ -159,7 +160,8 @@ const Login = () => {
                         <p className="ml-3">Login with Github</p>
                     </button>
                 </div>
-
+                <div data-aos="fade-in">Content to animate</div>
+                AOS.init();
             </div>
         </div>
     );

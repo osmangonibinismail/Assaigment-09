@@ -1,6 +1,25 @@
 
+import { updateProfile } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
+
+
 const Update = () => {
+
+    updateProfile(auth.currentUser, {
+        displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(() => {
+        // Profile updated!
+        // ...
+    }).catch((error) => {
+        // An error occurred
+        // ...
+    });
+   
+
+
+
     return (
+
         <div className="pt-10 pb-20 min-h-screen" >
             <div className="pt-20 min-h-screen bg-base-300">
                 <div className="hero-content flex-col lg:flex-row-reverse">
