@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 import auth from "../../firebase/firebase.config";
-import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth/cordova";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 
 
@@ -84,7 +84,6 @@ const Login = () => {
                 const loggedInUser = result.user;
 
                 console.log(loggedInUser);
-                setUser(loggedInUser)
             })
             .catch(error => {
                 console.log(error)
@@ -97,7 +96,6 @@ const Login = () => {
             const loggedUser = result.user;
 
             console.log(loggedUser);
-            setUser(loggedUser)
         })
         .catch(error => {
             console.log(error)

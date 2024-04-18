@@ -1,12 +1,15 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
 import { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
-import { onAuthStateChanged, signOut } from "firebase/auth/cordova";
+import { GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
+    
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
     const { createUser } = useContext(AuthContext);
 
     const [registerError, setRegisterError] = useState('');
@@ -71,10 +74,33 @@ const Register = () => {
                 setRegisterError(error.message);
             })
         
-
-        
-        
+  
     }
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, googleProvider)
+
+            .then(result => {
+                const loggedInUser = result.user;
+
+                console.log(loggedInUser);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const handleGithubSignIn = () => {
+        signInWithPopup(auth, githubProvider)
+        .then(result => {
+            const loggedUser = result.user;
+
+            console.log(loggedUser);
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
 
 
     return (
@@ -134,11 +160,11 @@ const Register = () => {
                     }
 
                     <p className="text-center mt-4">already account?  please<Link className="" to='/login'><button className="btn btn-link font-bold">Login</button></Link></p>
-                    <button className="border border-indigo-600 btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
+                    <button onClick={handleGoogleSignIn} className="border border-indigo-600 btn mt-5 mb-2 ml-5 mr-5 font-bold text-xl">
                         <FaGoogle></FaGoogle>
                         <p className="ml-3">Register with Google</p>
                     </button>
-                    <button className="border border-indigo-600 btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl">
+                    <button onClick={handleGithubSignIn} className="border border-indigo-600 btn mt-2 mb-8 ml-5 mr-5 font-bold text-xl">
                         <FaGithub></FaGithub>
                         <p className="ml-3">
                             Register with Github</p>
