@@ -11,8 +11,6 @@ const Update = () => {
         // Profile updated!
         // ...
     }).catch((error) => {
-        // An error occurred
-        // ...
     });
    
 
